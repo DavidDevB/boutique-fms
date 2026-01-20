@@ -1,9 +1,9 @@
-
+import Item from './Item.js';
 
 class Clothing extends Item {
 
-    constructor(size) {
-        super(id, title, type, genre, price, stock, imageUrl);
+    constructor(id, title, type, genre, price, stock, image, size, material) {
+        super(id, title, type, genre, price, stock, image);
         this.size = size;
         this.material = material;
     }
