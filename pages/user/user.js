@@ -24,6 +24,7 @@ mainContainer.appendChild(mainSection);
 // Fonction pour afficher les articles avec les filtres appliqués
 async function displayItems(type, genre) {
     mainSection.innerHTML = await ItemsDisplay(type, genre);
+    mainSection.insertAdjacentHTML('afterbegin', `<div class="items-header"><h2>Type: ${type ? type : 'All'}</h2><span>Genre: ${genre ? genre : 'All'}</span></h2></div>`);
 }
 
 // Affichage initial
@@ -40,7 +41,6 @@ const typeElements = document.querySelectorAll('.types');
 typeElements.forEach(element => {
     
     element.addEventListener('click', () => {
-        console.log(element);
         filters.type = element.dataset.type;
         displayItems(filters.type, filters.genre);
     });
