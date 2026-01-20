@@ -49,7 +49,7 @@ const UserFilters = () => {
                     <label for="women">Women</label>
                 </div>
                 <div class="filter-option">
-                    <input type="radio" id="all" name="genre" value="all"></input>
+                    <input type="radio" id="all" name="genre" value="all" checked="checked"></input>
                     <label for="all">All</label>
                 </div>
             </div>
