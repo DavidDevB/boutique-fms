@@ -29,14 +29,32 @@ async function displayItems(type, genre) {
 // Affichage initial
 displayItems(null, null);
 
+const filters = {
+    type: null,
+    genre: null
+}
+
+// Utiliser les types pour afficher les articles
+const typeElements = document.querySelectorAll('.types');
+
+typeElements.forEach(element => {
+    
+    element.addEventListener('click', () => {
+        console.log(element);
+        filters.type = element.dataset.type;
+        displayItems(filters.type, filters.genre);
+    });
+});
+
+
 // Utiliser les filtres pour afficher les articles
 const genreInputs = document.getElementsByName('genre');
 genreInputs.forEach(input => {
     input.addEventListener('change', () => {
         const selectedGenre = document.querySelector('input[name="genre"]:checked').value;
         const genre = selectedGenre === 'all' ? null : selectedGenre;
-        
-        displayItems(null, genre);
+        filters.genre = genre;
+        displayItems(filters.type, filters.genre);
     });
 });
 
