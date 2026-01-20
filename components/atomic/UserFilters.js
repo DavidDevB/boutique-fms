@@ -7,8 +7,9 @@ const UserFilters = () => {
          @import url('https://fonts.googleapis.com/css2?family=Kosugi&display=swap');
 
         .filters {
-        font-family: 'Kosugi', sans-serif;
+            font-family: 'Kosugi', sans-serif;
             display: flex;
+            flex: 2;
             flex-direction: column;
             align-items: flex-start;
             gap: 10px;
