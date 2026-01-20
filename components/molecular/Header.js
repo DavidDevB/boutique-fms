@@ -42,7 +42,7 @@ const Header = () => {
         gap: 15px;
         }
 
-        nav {
+        nav div {
         font-size: 20px;
         color: #333;
         cursor: pointer;
@@ -55,16 +55,16 @@ const Header = () => {
     return ( style +
         `<style src="Header.css" rel="stylesheet"></style>
         <header class="header">
-            <div class="logo-and-links">
-                <nav>Clothes</nav>
-                <nav>Shoes</nav>
+            <nav class="logo-and-links">
+                <div class="types" data-type="clothes">Clothes</div>
+                <div class="types" data-type="shoes">Shoes</div>
                 <img id="logo" src="/assets/logo-fms-boutique.png" alt="FMS Boutique Logo"/>
-                <nav>Accessories</nav>
-            </div>
-            <div class="cart-and-user">
+                <div class="types" data-type="accessories">Accessories</div>
+            </nav>
+            <nav class="cart-and-user">
                 <img src="/assets/icon-shopping-cart.png" alt="Shopping Cart Icon"/>
                 <img src="/assets/icon-user.png" alt="User Icon"/>
-            </div>
+            </nav>
         </header>`
     );
 }
