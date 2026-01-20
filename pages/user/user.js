@@ -8,14 +8,20 @@ const body = document.querySelector('body');
 // Insère le header en haut de la page
 body.insertAdjacentHTML('afterbegin', Header());
 
+// 
+const mainContainer = document.createElement("div");
+mainContainer.classList.add("main-container");
+body.appendChild(mainContainer);
+
 // Insère la barre latérale à gauche de la page
-body.insertAdjacentHTML('beforeend', SideBar(UserFilters()));
+mainContainer.insertAdjacentHTML('beforeend', SideBar(UserFilters()));
 
 // Insère l'affichage des articles dans la section principale
 const mainSection = document.createElement('main');
 mainSection.classList.add('main-content');
-body.appendChild(mainSection);
+mainContainer.appendChild(mainSection);
 
+// Fonction pour afficher les articles avec les filtres appliqués
 async function displayItems(type, genre) {
     mainSection.innerHTML = await ItemsDisplay(type, genre);
 }
