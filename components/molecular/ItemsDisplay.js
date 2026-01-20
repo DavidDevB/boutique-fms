@@ -69,9 +69,7 @@ const ItemsDisplay = async (type, genre) => {
     const filteredData = data.items.filter(item => {
         return (type ? item.type === type : true) && (genre ? item.genre === genre : true);
     });
-
-    console.log('Filtered Data:', filteredData); // Debugging line
-
+    
     // Générer le HTML des articles filtrés
     const itemsHTML = filteredData
     .map(itemData => Itemfactory.createItem(itemData))
