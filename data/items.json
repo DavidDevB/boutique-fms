@@ -5,7 +5,7 @@
         "title": "Black T-Shirt",
         "image": "black-tshirt.png",
         "type": "Clothing",
-        "genre": "Men",
+        "genre": "men",
         "color": "Black",
         "price": 25,
         "stock": 500
@@ -15,7 +15,7 @@
         "title": "Blue T-Shirt",
         "image": "blue-tshirt.png",
         "type": "Clothing",
-        "genre": "Men",
+        "genre": "men",
         "color": "Blue",
         "price": 25,
         "stock": 500
@@ -25,7 +25,7 @@
         "title": "White T-Shirt",
         "image": "white-tshirt.png",
         "type": "Clothing",
-        "genre": "Men",
+        "genre": "men",
         "color": "White",
         "price": 25,
         "stock": 500
@@ -35,7 +35,7 @@
         "title": "Grey sleeveless T-Shirt",
         "image": "grey-sleeveless.png",
         "type": "Clothing",
-        "genre": "Women",
+        "genre": "women",
         "color": "Grey",
         "price": 20,
         "stock": 500
@@ -45,7 +45,7 @@
         "title": "White sleeveless T-Shirt",
         "image": "white-sleeveless.png",
         "type": "Clothing",
-        "genre": "Women",
+        "genre": "women",
         "color": "White",
         "price": 20,
         "stock": 500
@@ -55,7 +55,7 @@
         "title": "Blue jeans",
         "image": "jeans.png",
         "type": "Clothing",
-        "genre": "All",
+        "genre": "all",
         "color": "Blue",
         "price": 80,
         "stock": 300
@@ -65,7 +65,7 @@
         "title": "Socks",
         "image": "socks.png",
         "type": "Clothing",
-        "genre": "All",
+        "genre": "all",
         "color": "White",
         "price": 10,
         "stock": 1000
@@ -75,7 +75,7 @@
         "title": "Belt",
         "image": "belt.png",
         "type": "Accessory",
-        "genre": "All",
+        "genre": "all",
         "color": "Brown",
         "price": 30,
         "stock": 200
@@ -85,7 +85,7 @@
         "title": "Baseball Cap",
         "image": "white-hat.png",
         "type": "Accessory",
-        "genre": "All",
+        "genre": "all",
         "color": "White",
         "price": 15,
         "stock": 400
@@ -95,7 +95,7 @@
         "title": "Basketball Cap",
         "image": "teal-hat.png",
         "type": "Accessory",
-        "genre": "All",
+        "genre": "all",
         "color": "Teal",
         "price": 15,
         "stock": 400
@@ -105,7 +105,7 @@
         "title": "Leather Shoes",
         "image": "leather-shoes.png",
         "type": "Shoes",
-        "genre": "Men",
+        "genre": "men",
         "color": "Brown",
         "price": 120,
         "stock": 150
@@ -115,7 +115,7 @@
         "title": "Running Shoes",
         "image": "runnings.png",
         "type": "Shoes",
-        "genre": "Women",
+        "genre": "women",
         "color": "White",
         "price": 90,
         "stock": 200
