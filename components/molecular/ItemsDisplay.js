@@ -1,4 +1,5 @@
 
+import Itemfactory from '../../classes/factories/ItemFactory.js';
 
 const ItemsDisplay = async (type, genre) => {
 
@@ -52,19 +53,17 @@ const ItemsDisplay = async (type, genre) => {
     const data = await response.json();
 
     // Filtrer les articles en fonction des critères
-    const filteredItems = data.items.filter(item => {
+    const filteredData = data.items.filter(item => {
         return (type ? item.type === type : true) && (genre ? item.genre === genre : true);
     });
 
+    console.log('Filtered Data:', filteredData); // Debugging line
+
     // Générer le HTML des articles filtrés
-    const itemsHTML = filteredItems.map(item => `
-        <div class="items-card">
-            <img src="../../assets/${item.image}" alt="${item.title}" />
-            <h3>${item.title}</h3>
-            <p>${item.price}€</p>
-            <button style="cursor:pointer; border: none; box-shadow: 1px 1px 1px black;"><img src="../../assets/icon-shopping-cart.png" alt="Add to cart" style="width:20px; " /></button>
-        </div>
-    `).join('');   
+    const itemsHTML = filteredData
+    .map(itemData => Itemfactory.createItem(itemData))
+    .map(item => item.toHTML())
+    .join('');   
 
     // Retourner le HTML complet
     return ( style + `
