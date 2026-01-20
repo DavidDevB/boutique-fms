@@ -18,7 +18,7 @@ const ItemsDisplay = async (type, genre) => {
 
         .items-card {
             border-radius: 5px;
-            background-color: #aec1c7;
+            background-color: #b6c4c8;
             padding: 10px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
