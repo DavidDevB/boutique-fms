@@ -5,3 +5,14 @@ body {
     padding: 0;
     height: 100vh;
 }
+
+.main-container {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+}
+
+.main-content {
+    flex: 8;
+    overflow-y: auto;
+}
