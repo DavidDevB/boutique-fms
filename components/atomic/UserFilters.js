@@ -42,16 +42,16 @@ const UserFilters = () => {
             <span>Genre:</span>
             <div class="filter-options">
                 <div class="filter-option">
-                    <input type="radio" id="men" name="genre" value="men"></input>
-                    <label for="men">Men</label>
+                    <input style="cursor:pointer" type="radio" id="men" name="genre" value="men"></input>
+                    <label style="cursor:pointer" for="men">Men</label>
                 </div>
                 <div class="filter-option">
-                    <input type="radio" id="women" name="genre" value="women"></input>
-                    <label for="women">Women</label>
+                    <input style="cursor:pointer" type="radio" id="women" name="genre" value="women"></input>
+                    <label style="cursor:pointer" for="women">Women</label>
                 </div>
                 <div class="filter-option">
-                    <input type="radio" id="all" name="genre" value="all" checked="checked"></input>
-                    <label for="all">All</label>
+                    <input style="cursor:pointer" type="radio" id="all" name="genre" value="all" checked="checked"></input>
+                    <label style="cursor:pointer" for="all">All</label>
                 </div>
             </div>
         </div>
