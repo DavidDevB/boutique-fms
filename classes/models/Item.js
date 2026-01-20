@@ -1,20 +1,20 @@
 
 
 class Item {
-    constructor(id, title, type, genre, price, stock, imageUrl) {
+    constructor(id, title, type, genre, price, stock, image) {
         this.id = id;
         this.title = title;
         this.type = type;
         this.genre = genre;
         this.price = price;
         this.stock = stock;
-        this.imageUrl = imageUrl;
+        this.image = image;
     }
 
     toHTML() {
         return `
             <div class="items-card" data-id="${this.id}" data-type="${this.type}">
-                <img src="../../assets/${this.imageUrl}" alt="${this.title}" />
+                <img src="../../assets/${this.image}" alt="${this.title}" />
                 <h3>${this.title}</h3>
                 <p>${this.price}€</p>
                 ${this.renderAddToCart()}
