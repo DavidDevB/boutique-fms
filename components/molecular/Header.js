@@ -58,7 +58,7 @@ const Header = () => {
             <nav class="logo-and-links">
                 <div class="types" data-type="Clothing">Clothes</div>
                 <div class="types" data-type="Shoes">Shoes</div>
-                <img id="logo" src="/assets/logo-fms-boutique.png" alt="FMS Boutique Logo"/>
+                <img style="cursor: pointer;" class="reset-filters" id="logo" src="/assets/logo-fms-boutique.png" alt="FMS Boutique Logo"/>
                 <div class="types" data-type="Accessory">Accessories</div>
             </nav>
             <nav class="cart-and-user">
