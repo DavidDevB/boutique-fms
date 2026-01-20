@@ -2,11 +2,15 @@ import Header from '../../components/molecular/Header.js';
 import SideBar from '../../components/molecular/SideBar.js';
 import UserFilters from '../../components/atomic/UserFilters.js';
 import ItemsDisplay from '../../components/molecular/ItemsDisplay.js';
+import CartModal from '../../components/molecular/CartModal.js';
 
 const body = document.querySelector('body');
 
 // Insère le header en haut de la page
 body.insertAdjacentHTML('afterbegin', Header());
+
+// Insère la modale du panier
+body.insertAdjacentHTML('beforeend', CartModal());
 
 // Crée le conteneur principal pour la barre latérale et le contenu principal
 const mainContainer = document.createElement("div");
@@ -70,6 +74,14 @@ resetButton.addEventListener('click', () => {
     });
     displayItems(filters.type, filters.genre);
 });
+
+// Ouvir modale du panier
+const cartIcon = document.getElementById('shopping-cart');
+cartIcon.addEventListener('click', () => {
+    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+    cartModal.show();
+});
+
 
 
 
