@@ -1,5 +1,4 @@
 
-
 class Item {
     constructor(id, title, type, genre, price, stock, image) {
         this.id = id;
@@ -10,6 +9,7 @@ class Item {
         this.stock = stock;
         this.image = image;
     }
+
 
     toHTML() {
         return `

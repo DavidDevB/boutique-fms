@@ -16,7 +16,7 @@ const SideBar = (children) => {
             align-items: center;
             margin-top: 20px;
             height: 100%;
-            background-color: #7391a0;
+
         }
         .sidebar span {
             font-weight: bold;

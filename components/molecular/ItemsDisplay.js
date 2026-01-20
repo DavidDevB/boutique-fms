@@ -17,8 +17,8 @@ const ItemsDisplay = async (type, genre) => {
         }
 
         .items-card {
-            border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #aec1c7;
             padding: 10px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -44,6 +44,19 @@ const ItemsDisplay = async (type, genre) => {
         .items-card p {
             margin: 0;
             color: #666;
+        }
+        
+        .add-to-cart {
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 4px;
         }
     </style>
     `;
