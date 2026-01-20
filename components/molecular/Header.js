@@ -56,10 +56,10 @@ const Header = () => {
         `<style src="Header.css" rel="stylesheet"></style>
         <header class="header">
             <nav class="logo-and-links">
-                <div class="types" data-type="clothes">Clothes</div>
-                <div class="types" data-type="shoes">Shoes</div>
+                <div class="types" data-type="Clothing">Clothes</div>
+                <div class="types" data-type="Shoes">Shoes</div>
                 <img id="logo" src="/assets/logo-fms-boutique.png" alt="FMS Boutique Logo"/>
-                <div class="types" data-type="accessories">Accessories</div>
+                <div class="types" data-type="Accessory">Accessories</div>
             </nav>
             <nav class="cart-and-user">
                 <img src="/assets/icon-shopping-cart.png" alt="Shopping Cart Icon"/>
