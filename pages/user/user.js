@@ -58,6 +58,19 @@ genreInputs.forEach(input => {
     });
 });
 
+// Réinitialiser les filtres
+const resetButton = document.querySelector('.reset-filters');
+resetButton.addEventListener('click', () => {
+    filters.type = null;
+    filters.genre = null;
+
+    // Réinitialiser les sélections dans l'interface utilisateur
+    genreInputs.forEach(input => {
+        input.checked = input.value === 'all';
+    });
+    displayItems(filters.type, filters.genre);
+});
+
 
 
 
