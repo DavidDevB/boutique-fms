@@ -8,7 +8,7 @@ const body = document.querySelector('body');
 // Insère le header en haut de la page
 body.insertAdjacentHTML('afterbegin', Header());
 
-// 
+// Crée le conteneur principal pour la barre latérale et le contenu principal
 const mainContainer = document.createElement("div");
 mainContainer.classList.add("main-container");
 body.appendChild(mainContainer);
