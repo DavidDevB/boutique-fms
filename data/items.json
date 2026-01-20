@@ -7,6 +7,7 @@
         "type": "Clothing",
         "genre": "men",
         "color": "Black",
+        "size": "M",
         "price": 25,
         "stock": 500,
         "material": "Cotton"
@@ -18,6 +19,7 @@
         "type": "Clothing",
         "genre": "men",
         "color": "Blue",
+        "size": "M",
         "price": 25,
         "stock": 500,
         "material": "Cotton"
@@ -29,6 +31,7 @@
         "type": "Clothing",
         "genre": "men",
         "color": "White",
+        "size": "M",
         "price": 25,
         "stock": 500,
         "material": "Cotton"
@@ -40,6 +43,7 @@
         "type": "Clothing",
         "genre": "women",
         "color": "Grey",
+        "size": "M",
         "price": 20,
         "stock": 500,
         "material": "Cotton"
@@ -51,6 +55,7 @@
         "type": "Clothing",
         "genre": "women",
         "color": "White",
+        "size": "M",
         "price": 20,
         "stock": 500,
         "material": "Cotton"
@@ -62,6 +67,7 @@
         "type": "Clothing",
         "genre": "all",
         "color": "Blue",
+        "size": "32",
         "price": 80,
         "stock": 300,
         "material": "Denim"
@@ -73,6 +79,7 @@
         "type": "Clothing",
         "genre": "all",
         "color": "White",
+        "size": "M",
         "price": 10,
         "stock": 1000,
         "material": "Cotton"
@@ -117,6 +124,7 @@
         "type": "Shoes",
         "genre": "men",
         "color": "Brown",
+        "size": 45,
         "price": 120,
         "stock": 150,
         "brand": "LeatherCo"
@@ -128,6 +136,7 @@
         "type": "Shoes",
         "genre": "women",
         "color": "White",
+        "size": 40,
         "price": 90,
         "stock": 200,
         "brand": "Sporty"
