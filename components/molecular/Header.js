@@ -62,8 +62,8 @@ const Header = () => {
                 <div class="types" data-type="Accessory">Accessories</div>
             </nav>
             <nav class="cart-and-user">
-                <img src="/assets/icon-shopping-cart.png" alt="Shopping Cart Icon"/>
-                <img src="/assets/icon-user.png" alt="User Icon"/>
+                <img id="shopping-cart" src="/assets/icon-shopping-cart.png" alt="Shopping Cart Icon"/>
+                <img id="user-icon" src="/assets/icon-user.png" alt="User Icon"/>
             </nav>
         </header>`
     );
