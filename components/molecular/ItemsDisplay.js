@@ -25,7 +25,7 @@ const ItemsDisplay = async (type, genre) => {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-around;
         }
 
         .items-card img {
