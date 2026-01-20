@@ -47,13 +47,16 @@ const ItemsDisplay = async (type, genre) => {
     </style>
     `;
 
+    // Fetch items data
     const response = await fetch('../../data/items.json');
     const data = await response.json();
 
+    // Filtrer les articles en fonction des critères
     const filteredItems = data.items.filter(item => {
         return (type ? item.type === type : true) && (genre ? item.genre === genre : true);
     });
 
+    // Générer le HTML des articles filtrés
     const itemsHTML = filteredItems.map(item => `
         <div class="items-card">
             <img src="../../assets/${item.image}" alt="${item.title}" />
@@ -63,6 +66,7 @@ const ItemsDisplay = async (type, genre) => {
         </div>
     `).join('');   
 
+    // Retourner le HTML complet
     return ( style + `
     <section class="items-display">
         ${itemsHTML}
