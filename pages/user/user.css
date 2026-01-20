@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Kosugi&display=swap');
 
 body {
     margin: 0;
@@ -15,4 +15,22 @@ body {
 .main-content {
     flex: 8;
     overflow-y: auto;
+}
+
+.items-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.items-header h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Kosugi', sans-serif;
+    color: #333;
+}
+
+.items-header span {
+    font-family: 'Kosugi', sans-serif;
+    font-size: 20px;
+    color: #666;
 }
