@@ -8,7 +8,8 @@
         "genre": "men",
         "color": "Black",
         "price": 25,
-        "stock": 500
+        "stock": 500,
+        "material": "Cotton"
         },
         {
         "id": 2,
@@ -18,7 +19,8 @@
         "genre": "men",
         "color": "Blue",
         "price": 25,
-        "stock": 500
+        "stock": 500,
+        "material": "Cotton"
         },
         {
         "id": 3,
@@ -28,7 +30,8 @@
         "genre": "men",
         "color": "White",
         "price": 25,
-        "stock": 500
+        "stock": 500,
+        "material": "Cotton"
         },
         {
         "id": 4,
@@ -38,7 +41,8 @@
         "genre": "women",
         "color": "Grey",
         "price": 20,
-        "stock": 500
+        "stock": 500,
+        "material": "Cotton"
         },
         {
         "id": 5,
@@ -48,7 +52,8 @@
         "genre": "women",
         "color": "White",
         "price": 20,
-        "stock": 500
+        "stock": 500,
+        "material": "Cotton"
         },
         {
         "id": 6,
@@ -58,7 +63,8 @@
         "genre": "all",
         "color": "Blue",
         "price": 80,
-        "stock": 300
+        "stock": 300,
+        "material": "Denim"
         },
         {
         "id": 7,
@@ -68,7 +74,8 @@
         "genre": "all",
         "color": "White",
         "price": 10,
-        "stock": 1000
+        "stock": 1000,
+        "material": "Cotton"
         },
         {
         "id": 8,
@@ -78,7 +85,8 @@
         "genre": "all",
         "color": "Brown",
         "price": 30,
-        "stock": 200
+        "stock": 200,
+        "category": "Belts"
         },
         {
         "id": 9,
@@ -88,7 +96,8 @@
         "genre": "all",
         "color": "White",
         "price": 15,
-        "stock": 400
+        "stock": 400,
+        "category": "Caps"
         },
         {
         "id": 10,
@@ -98,7 +107,8 @@
         "genre": "all",
         "color": "Teal",
         "price": 15,
-        "stock": 400
+        "stock": 400,
+        "category": "Caps"
         },
         {
         "id": 11,
@@ -108,7 +118,8 @@
         "genre": "men",
         "color": "Brown",
         "price": 120,
-        "stock": 150
+        "stock": 150,
+        "brand": "LeatherCo"
         },
         {
         "id": 12,
@@ -118,7 +129,8 @@
         "genre": "women",
         "color": "White",
         "price": 90,
-        "stock": 200
+        "stock": 200,
+        "brand": "Sporty"
         }
     ]
 }
