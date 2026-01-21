@@ -113,6 +113,24 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Supprimer élement du panier à partir de la croix
+document.addEventListener('click', (e) => {
+    if (e.target.id === 'cross-button') {
+        const cartItem = e.target.closest('.cart-item');
+        const itemId = cartItem.dataset.id;
+        let cart = JSON.parse(cartStorage.getItem('cart')) || {};
+        delete cart[itemId];
+        cartStorage.setItem('cart', JSON.stringify(cart));
+        cartItem.remove();
+
+        // ✅ Si le panier est vide, afficher un message
+        const modalBody = document.querySelector('#cartModal .modal-body ul');
+        if (Object.keys(cart).length === 0) {
+            modalBody.parentElement.innerHTML = '<p>Your cart is currently empty.</p>';
+        }
+    }
+});
+
 // ✅ Ouvrir modale du panier (sans recharger)
 const cartIcon = document.getElementById('shopping-cart');
 cartIcon.addEventListener('click', async () => {
