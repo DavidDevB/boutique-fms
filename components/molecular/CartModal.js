@@ -40,7 +40,7 @@ const CartModal = async (storage) => {
                     <ul>
                         ${Object.entries(storage).map(([itemId, quantity]) => {
                             const item = data.items.find(i => i.id === parseInt(itemId));
-                        return `<div class="cart-item" data-id="${itemId}"><li>${item ? item.title : 'Unknown Item'}</li><div><button class="quantity-button" id="subtract" data-action="subtract"><img src="/assets/subtraction.png"/></button><input class="quantity-input" type="number" value="${quantity}"/><button class="quantity-button" id="add" data-action="add"><img src="/assets/addition.png"/></button></div></div>`;
+                        return `<div class="cart-item" data-id="${itemId}"><li>${item ? item.title : 'Unknown Item'}</li><div><button class="quantity-button" id="subtract" data-action="subtract"><img src="/assets/subtraction.png"/></button><input class="quantity-input" type="number" value="${quantity}"/><button class="quantity-button" id="add" data-action="add"><img src="/assets/addition.png"/></button><button><img src="/assets/cross.png" id="cross-button"/></button></div></div>`;
                         }).join('')}
                     </ul>
                 </div>
