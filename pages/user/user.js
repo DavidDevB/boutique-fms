@@ -5,6 +5,7 @@ import ItemsDisplay from '../../components/molecular/ItemsDisplay.js';
 import CartModal from '../../components/molecular/CartModal.js';
 
 const cartStorage = localStorage;
+let checkout = false;
 
 const body = document.querySelector('body');
 
@@ -47,10 +48,6 @@ const attachCartListeners = () => {
                 cart[itemId] = 1;
             }
             cartStorage.setItem('cart', JSON.stringify(cart));
-
-            // ✅ Recharger la modale après l'ajout (si elle est fermée)
-            const modalElement = document.getElementById('cartModal');
-            const isModalOpen = modalElement.classList.contains('show');
             
             await reloadCartModal();
             
@@ -67,8 +64,9 @@ async function reloadCartModal() {
     // Importer la fonction CartModal
     const { default: CartModal } = await import('../../components/molecular/CartModal.js');
     
+    console.log(checkout);
     // Générer le nouveau HTML
-    const newModalHTML = await CartModal(cart);
+    const newModalHTML = await CartModal(cart, checkout);
     
     // Remplacer l'ancienne modale
     const oldModal = document.getElementById('cartModal');
@@ -103,6 +101,8 @@ document.addEventListener('click', (e) => {
         const input = cartItem.querySelector('.quantity-input');
         const priceElement = cartItem.querySelector('p[data-price]');
         const unitPrice = parseFloat(priceElement.dataset.price);
+        const totalPriceElement = document.querySelector('.modal-total span[data-total]');
+        const totalPriceValue = parseFloat(totalPriceElement.dataset.total);
         
         let cart = JSON.parse(cartStorage.getItem('cart')) || {};
         let currentValue = parseInt(cart[itemId]) || 0;
@@ -111,12 +111,16 @@ document.addEventListener('click', (e) => {
             currentValue += 1;
             cart[itemId] = currentValue;
             input.value = currentValue; 
-            priceElement.textContent = `$${(unitPrice * currentValue).toFixed(2)}`;
+            priceElement.textContent = `${(unitPrice * currentValue).toFixed(2)}€`;
+            totalPriceElement.textContent = `Total: ${(totalPriceValue + unitPrice).toFixed(2)}€`;
+
         } else if (action === 'subtract' && currentValue > 1) {
             currentValue -= 1;
             cart[itemId] = currentValue;
             input.value = currentValue; 
-            priceElement.textContent = `$${(unitPrice * currentValue).toFixed(2)}`;
+            priceElement.textContent = `${(unitPrice * currentValue).toFixed(2)}€`;
+            totalPriceElement.textContent = `Total: ${(totalPriceValue - unitPrice).toFixed(2)}€`;
+            
         } else if (action === 'subtract' && currentValue === 1) {
             console.log('Removing item from cart');
             delete cart[itemId];
@@ -150,11 +154,59 @@ document.addEventListener('click', (e) => {
     }
 });
 
+//Bouton checkout
+document.addEventListener('click', async (e) => {
+    if (e.target.id === 'checkout') {
+        const modalElement = document.getElementById('cartModal');
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        
+        // ✅ 2. Ferme proprement
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+        
+        // ✅ 3. Attends la fermeture complète
+        modalElement.addEventListener('hidden.bs.modal', async function onHidden() {
+            modalElement.removeEventListener('hidden.bs.modal', onHidden);
+            
+            // ✅ 4. Recharge et réaffiche
+            checkout = true;
+            await reloadCartModal();
+            
+            const newModalElement = document.getElementById('cartModal');
+            const newModal = new bootstrap.Modal(newModalElement);
+            newModal.show();
+        });
+    }
+});
+
+// Bouton fermer modale checkout
+document.addEventListener('click', async (e) => {
+    if (e.target.id === 'close-checkout-button') {
+        const modalElement = document.getElementById('cartModal');
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        
+        // ✅ 2. Ferme proprement la modale Bootstrap
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+        
+        // ✅ 3. Attends que Bootstrap ait fini de fermer
+        modalElement.addEventListener('hidden.bs.modal', async function onHidden() {
+            // Supprime le listener pour éviter les duplications
+            modalElement.removeEventListener('hidden.bs.modal', onHidden);
+            
+            // ✅ 4. Maintenant tu peux recharger
+            checkout = false;
+            await reloadCartModal();
+        });
+    }
+});
+
 // Ouvrir modale du panier (sans recharger)
 const cartIcon = document.getElementById('shopping-cart');
 cartIcon.addEventListener('click', async () => {
     // Recharger uniquement si la modale n'est pas visible
-    
     await reloadCartModal();
 
     const modalElement = document.getElementById('cartModal');
@@ -208,7 +260,7 @@ resetButton.addEventListener('click', () => {
     displayItems(filters.type, filters.genre);
 });
 
-// This duplicate cartIcon declaration has been removed as it's already declared above
+
 
 
 

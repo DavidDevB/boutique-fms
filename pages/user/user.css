@@ -35,6 +35,16 @@ body {
     color: #666;
 }
 
+.modal-total {
+    font-family: 'Kosugi', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
 #checkout {
     margin: 20px;
 }
