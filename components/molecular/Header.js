@@ -50,6 +50,10 @@ const Header = () => {
         font-family: 'Kosugi', sans-serif;
         }
 
+        #shopping-cart, #user-icon {
+        cursor: pointer;
+        }
+
     </style>`;
 
     return ( style +
