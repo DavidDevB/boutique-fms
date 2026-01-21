@@ -61,3 +61,20 @@ body {
     cursor: pointer;
     margin: 0 5px;
 }
+
+.cart-item button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.cart-item #cross-button {
+    width: 15px;
+    height: 15px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
