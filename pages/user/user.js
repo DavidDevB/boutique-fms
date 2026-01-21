@@ -52,37 +52,45 @@ const attachCartListeners = () => {
             const modalElement = document.getElementById('cartModal');
             const isModalOpen = modalElement.classList.contains('show');
             
-            if (!isModalOpen) {
-                await reloadCartModal();
-            }
+            await reloadCartModal();
+            
             alert('Item added to cart!');
         });
     });
 }
 
-
 // Fonction pour recharger la modale du panier
 async function reloadCartModal() {
-    const storage = cartStorage.getItem('cart') ? JSON.parse(cartStorage.getItem('cart')) : undefined;
-    const modalElement = document.getElementById('cartModal');
+    const cart = JSON.parse(cartStorage.getItem('cart')) || {};
+    console.log('🔄 Rechargement de la modale avec:', cart);
+    
+    // Importer la fonction CartModal
+    const { default: CartModal } = await import('../../components/molecular/CartModal.js');
     
     // Générer le nouveau HTML
-    const newModalHTML = await CartModal(storage);
+    const newModalHTML = await CartModal(cart);
     
-    // Remplacer la modale
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = newModalHTML;
-    modalElement.replaceWith(tempDiv.firstElementChild);
+    // Remplacer l'ancienne modale
+    const oldModal = document.getElementById('cartModal');
+    if (oldModal) {
+        oldModal.remove();
+    }
+    
+    // Insérer la nouvelle modale
+    document.body.insertAdjacentHTML('beforeend', newModalHTML);
+    
+    console.log('✅ Modale rechargée');
 }
 
+// Fonction pour afficher un message lorsque le panier est vide
 function showEmptyCartMessage() {
+    console.log('Showing empty cart message');
     const modalBody = document.querySelector('#cartModal .modal-body');
+    console.log('Modal body:', modalBody);  
     if (modalBody) {
         modalBody.innerHTML = '<p>Your cart is currently empty.</p>';
     }
 }
-
-
 
 // Délégation d'événements pour les boutons de quantité (GLOBAL)
 document.addEventListener('click', (e) => {
@@ -110,15 +118,17 @@ document.addEventListener('click', (e) => {
             input.value = currentValue; 
             priceElement.textContent = `$${(unitPrice * currentValue).toFixed(2)}`;
         } else if (action === 'subtract' && currentValue === 1) {
+            console.log('Removing item from cart');
             delete cart[itemId];
-            cartItem.remove(); 
+            cartItem.remove();
             
             // Si le panier est vide, afficher un message
             if (Object.keys(cart).length === 0) {
-                showEmptyCartMessage();
+                console.log('Cart is now empty');
+                showEmptyCartMessage()
             }
+            
         }
-        
         cartStorage.setItem('cart', JSON.stringify(cart));
     }
 });
@@ -144,18 +154,14 @@ document.addEventListener('click', (e) => {
 const cartIcon = document.getElementById('shopping-cart');
 cartIcon.addEventListener('click', async () => {
     // Recharger uniquement si la modale n'est pas visible
+    
+    await reloadCartModal();
+
     const modalElement = document.getElementById('cartModal');
-    const isModalOpen = modalElement.classList.contains('show');
-    
-    if (!isModalOpen) {
-        await reloadCartModal();
-    }
-    
+  
     const cartModal = new bootstrap.Modal(modalElement);
     cartModal.show();
 });
-
-
 
 
 // Affichage initial

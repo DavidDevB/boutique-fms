@@ -5,7 +5,7 @@ const CartModal = async (storage) => {
     const response = await fetch('../../data/items.json');
     const data = await response.json();
 
-    if (storage === undefined) {
+    if (storage === undefined || Object.keys(storage).length === 0) {
     return `
     <!-- Modal -->
     <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
@@ -26,6 +26,9 @@ const CartModal = async (storage) => {
         </div>
     </div>
     `;
+    } 
+    else if (!storage || Object.keys(storage).length === 0) {
+            return '<p>Your cart is currently empty.</p>';
     } else {
         return `
     <!-- Modal -->
@@ -40,7 +43,16 @@ const CartModal = async (storage) => {
                     <ul>
                         ${Object.entries(storage).map(([itemId, quantity]) => {
                             const item = data.items.find(i => i.id === parseInt(itemId));
-                        return `<div class="cart-item" data-price=${item.price} data-id="${itemId}"><li>${item ? item.title : 'Unknown Item'}</li><p data-price=${item.price * quantity}>$${item ? (item.price * quantity).toFixed(2) : '0.00'}</p><div><button class="quantity-button" id="subtract" data-action="subtract"><img src="/assets/subtraction.png"/></button><input class="quantity-input" type="number" value="${quantity}"/><button class="quantity-button" id="add" data-action="add"><img src="/assets/addition.png"/></button><button><img src="/assets/cross.png" id="cross-button"/></button></div></div>`;
+                        return `<div class="cart-item" data-price=${item.price} data-id="${itemId}">
+                                    <li>${item ? item.title : 'Unknown Item'}</li>
+                                    <p data-price=${item.price * quantity}>$${item ? (item.price * quantity).toFixed(2) : '0.00'}</p>
+                                    <div>
+                                        <button class="quantity-button" id="subtract" data-action="subtract"><img src="/assets/subtraction.png"/></button>
+                                        <input class="quantity-input" type="number" value="${quantity}"/>
+                                        <button class="quantity-button" id="add" data-action="add"><img src="/assets/addition.png"/></button>
+                                        <button><img src="/assets/cross.png" id="cross-button"/></button>
+                                    </div>
+                                </div>`;
                         }).join('')}
                     </ul>
                 </div>
