@@ -34,3 +34,30 @@ body {
     font-size: 20px;
     color: #666;
 }
+
+#checkout {
+    margin: 20px;
+}
+
+#cartModal {
+    font-family: 'Kosugi', sans-serif;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quantity-input {
+    width: 30px;
+    text-align: center;
+}
+
+.cart-item img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: 0 5px;
+}

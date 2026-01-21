@@ -4,13 +4,15 @@ import UserFilters from '../../components/atomic/UserFilters.js';
 import ItemsDisplay from '../../components/molecular/ItemsDisplay.js';
 import CartModal from '../../components/molecular/CartModal.js';
 
+const cartStorage = localStorage;
+
 const body = document.querySelector('body');
 
 // Insère le header en haut de la page
 body.insertAdjacentHTML('afterbegin', Header());
 
 // Insère la modale du panier
-body.insertAdjacentHTML('beforeend', CartModal());
+body.insertAdjacentHTML('beforeend', await CartModal(cartStorage.getItem('cart') ? JSON.parse(cartStorage.getItem('cart')) : undefined));
 
 // Crée le conteneur principal pour la barre latérale et le contenu principal
 const mainContainer = document.createElement("div");
@@ -29,7 +31,50 @@ mainContainer.appendChild(mainSection);
 async function displayItems(type, genre) {
     mainSection.innerHTML = await ItemsDisplay(type, genre);
     mainSection.insertAdjacentHTML('afterbegin', `<div class="items-header"><h2>Type: ${type ? type : 'All'}</h2><span>Genre: ${genre ? genre : 'All'}</span></h2></div>`);
+    attachCartListeners();
 }
+
+// Gestion ajout au panier
+const attachCartListeners = () => {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const itemId = button.dataset.id;
+            let cart = JSON.parse(cartStorage.getItem('cart')) || {};
+            if (cart[itemId]) {
+                cart[itemId] += 1;
+            } else {
+                cart[itemId] = 1;
+            }
+            cartStorage.setItem('cart', JSON.stringify(cart));
+            alert('Item added to cart!');
+        });
+    });
+}
+
+document.querySelectorAll('.cart-item button').forEach(button => {
+        button.addEventListener('click', () => {
+            const action = button.dataset.action;
+            const input = button.parentElement.querySelector('.quantity-input');
+            const itemId = button.parentElement.parentElement.querySelector('li').textContent;
+            let cart = JSON.parse(localStorage.getItem('cart')) || {};
+            let currentValue = cart[itemId] || 0;
+
+            if (action === 'add') {
+                currentValue += 1;
+            } else if (action === 'subtract' && currentValue > 1) {
+                currentValue -= 1;
+            } else if (action === 'subtract' && currentValue === 1) {
+                delete cart[itemId];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                button.parentElement.parentElement.remove();
+                return;
+            }
+            cart[itemId] = currentValue;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            input.value = currentValue;
+        });
+    });
 
 // Affichage initial
 displayItems(null, null);
