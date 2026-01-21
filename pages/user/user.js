@@ -38,7 +38,7 @@ async function displayItems(type, genre) {
 const attachCartListeners = () => {
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', async () => {
             const itemId = button.dataset.id;
             let cart = JSON.parse(cartStorage.getItem('cart')) || {};
             if (cart[itemId]) {
@@ -47,34 +47,89 @@ const attachCartListeners = () => {
                 cart[itemId] = 1;
             }
             cartStorage.setItem('cart', JSON.stringify(cart));
+
+            // ✅ Recharger la modale après l'ajout (si elle est fermée)
+            const modalElement = document.getElementById('cartModal');
+            const isModalOpen = modalElement.classList.contains('show');
+            
+            if (!isModalOpen) {
+                await reloadCartModal();
+            }
             alert('Item added to cart!');
         });
     });
 }
 
-document.querySelectorAll('.cart-item button').forEach(button => {
-        button.addEventListener('click', () => {
-            const action = button.dataset.action;
-            const input = button.parentElement.querySelector('.quantity-input');
-            const itemId = button.parentElement.parentElement.querySelector('li').textContent;
-            let cart = JSON.parse(localStorage.getItem('cart')) || {};
-            let currentValue = cart[itemId] || 0;
 
-            if (action === 'add') {
-                currentValue += 1;
-            } else if (action === 'subtract' && currentValue > 1) {
-                currentValue -= 1;
-            } else if (action === 'subtract' && currentValue === 1) {
-                delete cart[itemId];
-                localStorage.setItem('cart', JSON.stringify(cart));
-                button.parentElement.parentElement.remove();
-                return;
-            }
+// ✅ Fonction pour recharger la modale du panier
+async function reloadCartModal() {
+    const storage = cartStorage.getItem('cart') ? JSON.parse(cartStorage.getItem('cart')) : undefined;
+    const modalElement = document.getElementById('cartModal');
+    
+    // Générer le nouveau HTML
+    const newModalHTML = await CartModal(storage);
+    
+    // Remplacer la modale
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = newModalHTML;
+    modalElement.replaceWith(tempDiv.firstElementChild);
+}
+
+
+
+// ✅ Délégation d'événements pour les boutons de quantité (GLOBAL)
+document.addEventListener('click', (e) => {
+    const button = e.target.closest('.quantity-button');
+    
+    if (button) {
+        const action = button.dataset.action;
+        const cartItem = button.closest('.cart-item');
+        const itemId = cartItem.dataset.id;
+        const input = cartItem.querySelector('.quantity-input');
+        
+        let cart = JSON.parse(cartStorage.getItem('cart')) || {};
+        let currentValue = parseInt(cart[itemId]) || 0;
+        
+        if (action === 'add') {
+            currentValue += 1;
             cart[itemId] = currentValue;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            input.value = currentValue;
-        });
-    });
+            input.value = currentValue; // ✅ Mise à jour visuelle
+        } else if (action === 'subtract' && currentValue > 1) {
+            currentValue -= 1;
+            cart[itemId] = currentValue;
+            input.value = currentValue; // ✅ Mise à jour visuelle
+        } else if (action === 'subtract' && currentValue === 1) {
+            delete cart[itemId];
+            cartItem.remove(); // ✅ Supprimer l'élément du DOM
+            
+            // ✅ Si le panier est vide, afficher un message
+            const modalBody = document.querySelector('#cartModal .modal-body ul');
+            if (Object.keys(cart).length === 0) {
+                modalBody.parentElement.innerHTML = '<p>Your cart is currently empty.</p>';
+            }
+        }
+        
+        cartStorage.setItem('cart', JSON.stringify(cart));
+    }
+});
+
+// ✅ Ouvrir modale du panier (sans recharger)
+const cartIcon = document.getElementById('shopping-cart');
+cartIcon.addEventListener('click', async () => {
+    // Recharger uniquement si la modale n'est pas visible
+    const modalElement = document.getElementById('cartModal');
+    const isModalOpen = modalElement.classList.contains('show');
+    
+    if (!isModalOpen) {
+        await reloadCartModal();
+    }
+    
+    const cartModal = new bootstrap.Modal(modalElement);
+    cartModal.show();
+});
+
+
+
 
 // Affichage initial
 displayItems(null, null);
@@ -120,12 +175,7 @@ resetButton.addEventListener('click', () => {
     displayItems(filters.type, filters.genre);
 });
 
-// Ouvir modale du panier
-const cartIcon = document.getElementById('shopping-cart');
-cartIcon.addEventListener('click', () => {
-    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
-    cartModal.show();
-});
+// This duplicate cartIcon declaration has been removed as it's already declared above
 
 
 
