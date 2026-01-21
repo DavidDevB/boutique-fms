@@ -61,7 +61,7 @@ const attachCartListeners = () => {
 }
 
 
-// ✅ Fonction pour recharger la modale du panier
+// Fonction pour recharger la modale du panier
 async function reloadCartModal() {
     const storage = cartStorage.getItem('cart') ? JSON.parse(cartStorage.getItem('cart')) : undefined;
     const modalElement = document.getElementById('cartModal');
@@ -75,9 +75,16 @@ async function reloadCartModal() {
     modalElement.replaceWith(tempDiv.firstElementChild);
 }
 
+function showEmptyCartMessage() {
+    const modalBody = document.querySelector('#cartModal .modal-body');
+    if (modalBody) {
+        modalBody.innerHTML = '<p>Your cart is currently empty.</p>';
+    }
+}
 
 
-// ✅ Délégation d'événements pour les boutons de quantité (GLOBAL)
+
+// Délégation d'événements pour les boutons de quantité (GLOBAL)
 document.addEventListener('click', (e) => {
     const button = e.target.closest('.quantity-button');
     
@@ -86,6 +93,8 @@ document.addEventListener('click', (e) => {
         const cartItem = button.closest('.cart-item');
         const itemId = cartItem.dataset.id;
         const input = cartItem.querySelector('.quantity-input');
+        const priceElement = cartItem.querySelector('p[data-price]');
+        const unitPrice = parseFloat(priceElement.dataset.price);
         
         let cart = JSON.parse(cartStorage.getItem('cart')) || {};
         let currentValue = parseInt(cart[itemId]) || 0;
@@ -93,19 +102,20 @@ document.addEventListener('click', (e) => {
         if (action === 'add') {
             currentValue += 1;
             cart[itemId] = currentValue;
-            input.value = currentValue; // ✅ Mise à jour visuelle
+            input.value = currentValue; 
+            priceElement.textContent = `$${(unitPrice * currentValue).toFixed(2)}`;
         } else if (action === 'subtract' && currentValue > 1) {
             currentValue -= 1;
             cart[itemId] = currentValue;
-            input.value = currentValue; // ✅ Mise à jour visuelle
+            input.value = currentValue; 
+            priceElement.textContent = `$${(unitPrice * currentValue).toFixed(2)}`;
         } else if (action === 'subtract' && currentValue === 1) {
             delete cart[itemId];
-            cartItem.remove(); // ✅ Supprimer l'élément du DOM
+            cartItem.remove(); 
             
-            // ✅ Si le panier est vide, afficher un message
-            const modalBody = document.querySelector('#cartModal .modal-body ul');
+            // Si le panier est vide, afficher un message
             if (Object.keys(cart).length === 0) {
-                modalBody.parentElement.innerHTML = '<p>Your cart is currently empty.</p>';
+                showEmptyCartMessage();
             }
         }
         
@@ -123,15 +133,14 @@ document.addEventListener('click', (e) => {
         cartStorage.setItem('cart', JSON.stringify(cart));
         cartItem.remove();
 
-        // ✅ Si le panier est vide, afficher un message
-        const modalBody = document.querySelector('#cartModal .modal-body ul');
+        // Si le panier est vide, afficher un message
         if (Object.keys(cart).length === 0) {
-            modalBody.parentElement.innerHTML = '<p>Your cart is currently empty.</p>';
+            showEmptyCartMessage();
         }
     }
 });
 
-// ✅ Ouvrir modale du panier (sans recharger)
+// Ouvrir modale du panier (sans recharger)
 const cartIcon = document.getElementById('shopping-cart');
 cartIcon.addEventListener('click', async () => {
     // Recharger uniquement si la modale n'est pas visible
