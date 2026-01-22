@@ -4,37 +4,21 @@ const OrdersDisplay = async (orders) => {
 
 const style = `
     <style>
+
         .orders-display {
+            font-family: 'Kosugi', sans-serif;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
             padding: 20px;
-            background-color: #f9f9f9;
+            margin-top: 20px;
+        }
+        .order {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin-bottom: 16px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .orders-display h2 {
-            margin-bottom: 15px;
-            font-size: 24px;
-            color: #333;
-        }
-        .order-item {
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
-        }
-        .order-item h3 {
-            margin: 0 0 5px 0;
-            font-size: 20px;
-            color: #555;
-        }
-        .order-item p {
-            margin: 0 0 10px 0;
-            color: #777;
-        }
-        .order-item ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        .order-item ul li {
-            margin-bottom: 5px; 
-            color: #555;
+            background-color: #f9f9f9;
         }
     </style>
 `;
