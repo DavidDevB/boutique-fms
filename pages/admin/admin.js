@@ -1,6 +1,7 @@
 import Header from '../../components/molecular/Header.js';
 import SideBar from '../../components/molecular/SideBar.js';
 import AdminFilters from '../../components/atomic/AdminFilters.js';
+import OrdersDisplay from '../../components/molecular/OrdersDisplay.js';
 
 const cartStorage = localStorage;
 
@@ -23,3 +24,9 @@ mainContainer.insertAdjacentHTML('beforeend', SideBar(AdminFilters()));
 const mainSection = document.createElement('main');
 mainSection.classList.add('main-content');
 mainContainer.appendChild(mainSection);
+
+async function displayOrders() {
+    mainSection.innerHTML = await OrdersDisplay(JSON.parse(cartStorage.getItem('orders') || '[]'));
+}
+
+displayOrders();
