@@ -45,12 +45,6 @@ const AdminFilters = () => {
                     <label style="cursor:pointer" for="date">Date</label>
                     <input style="cursor:pointer" type="date" id="date" name="date" value=""></input>
                 </div>
-                <div class="filter-option">
-                    <label style="cursor:pointer" for="user">User</label>
-                    <select style="cursor:pointer" id="user" name="user" value="">
-                        ${localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')).map(user => `<option value="${user.id}">${user.name}</option>`).join('') : '<option value="">No users</option>'}
-                    </select>
-                </div>
             </div>
         </div>
     `);
