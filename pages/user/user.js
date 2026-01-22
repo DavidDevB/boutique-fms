@@ -4,7 +4,6 @@ import UserFilters from '../../components/atomic/UserFilters.js';
 import ItemsDisplay from '../../components/molecular/ItemsDisplay.js';
 import CartModal from '../../components/molecular/CartModal.js';
 
-const cartStorage = localStorage;
 let checkout = false;
 
 const body = document.querySelector('body');
@@ -13,7 +12,7 @@ const body = document.querySelector('body');
 body.insertAdjacentHTML('afterbegin', Header("user"));
 
 // Insère la modale du panier
-body.insertAdjacentHTML('beforeend', await CartModal(cartStorage.getItem('cart') ? JSON.parse(cartStorage.getItem('cart')) : undefined));
+body.insertAdjacentHTML('beforeend', await CartModal(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : undefined));
 
 // Crée le conteneur principal pour la barre latérale et le contenu principal
 const mainContainer = document.createElement("div");
@@ -41,13 +40,13 @@ const attachCartListeners = () => {
     addToCartButtons.forEach(button => {
         button.addEventListener('click', async () => {
             const itemId = button.dataset.id;
-            let cart = JSON.parse(cartStorage.getItem('cart')) || {};
+            let cart = JSON.parse(localStorage.getItem('cart')) || {};
             if (cart[itemId]) {
                 cart[itemId] += 1;
             } else {
                 cart[itemId] = 1;
             }
-            cartStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('cart', JSON.stringify(cart));
             
             await reloadCartModal();
             
@@ -58,7 +57,7 @@ const attachCartListeners = () => {
 
 // Fonction pour recharger la modale du panier
 async function reloadCartModal() {
-    const cart = JSON.parse(cartStorage.getItem('cart')) || {};
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
     console.log('🔄 Rechargement de la modale avec:', cart);
     
     // Importer la fonction CartModal
@@ -114,7 +113,7 @@ document.addEventListener('click', (e) => {
         const priceElement = cartItem.querySelector('p[data-price]');
         const unitPrice = parseFloat(cartItem.dataset.price);
         
-        let cart = JSON.parse(cartStorage.getItem('cart')) || {};
+        let cart = JSON.parse(localStorage.getItem('cart')) || {};
         let currentValue = parseInt(cart[itemId]) || 0;
         
         if (action === 'add') {
@@ -152,7 +151,7 @@ document.addEventListener('click', (e) => {
             }
             
         }
-        cartStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
 });
 
@@ -161,10 +160,12 @@ document.addEventListener('click', (e) => {
     if (e.target.id === 'cross-button') {
         const cartItem = e.target.closest('.cart-item');
         const itemId = cartItem.dataset.id;
-        let cart = JSON.parse(cartStorage.getItem('cart')) || {};
+        let cart = JSON.parse(localStorage.getItem('cart')) || {};
         delete cart[itemId];
-        cartStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
         cartItem.remove();
+
+        updateTotal();
 
         // Si le panier est vide, afficher un message
         if (Object.keys(cart).length === 0) {
@@ -175,7 +176,7 @@ document.addEventListener('click', (e) => {
 
 //Bouton checkout
 document.addEventListener('click', async (e) => {
-    if (e.target.id === 'checkout' && Object.keys(JSON.parse(cartStorage.getItem('cart'))).length > 0) {
+    if (e.target.id === 'checkout' && Object.keys(JSON.parse(localStorage.getItem('cart'))).length > 0) {
         const modalElement = document.getElementById('cartModal');
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
         
