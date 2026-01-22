@@ -135,13 +135,10 @@ const Header = (userOrAdmin = "user") => {
             `
             <header class="header">
                 <nav class="logo-and-links">
-                    <div class="types" data-type="Clothing">Clothes</div>
-                    <div class="types" data-type="Shoes">Shoes</div>
                     <div class="admin-logo-container">
                         <img style="cursor: pointer;" class="reset-filters" id="logo" src="/assets/logo-fms-boutique.png" alt="FMS Boutique Logo"/>
                         <p class="admin-panel-text">Admin Panel</p>
                     </div>
-                    <div class="types" data-type="Accessory">Accessories</div>
                 </nav>
                 <nav class="cart-and-user">
                     <img id="shopping-cart" src="/assets/icon-shopping-cart.png" alt="Shopping Cart Icon"/>
