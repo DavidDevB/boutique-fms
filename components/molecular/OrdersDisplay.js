@@ -2,9 +2,6 @@ import OrderFactory from '/classes/factories/OrderFactory.js';
 
 const OrdersDisplay = async (orders) => {
 
-    const response = await fetch('/data/items.json');
-    const allItems = await response.json();
-
 const style = `
     <style>
         .orders-display {
@@ -42,13 +39,11 @@ const style = `
     </style>
 `;
 
-
     const ordersHTML = orders.map(order => {
         let items = [];
         if (Array.isArray(order.items)) {
             items = order.items;
         } else if (order.items && typeof order.items === 'object') {
-            // Si items est un objet, le convertir en tableau
             items = Object.values(order.items);
         } else {
             console.error('Invalid items structure for order:', order);
@@ -57,7 +52,7 @@ const style = `
         const orderInstance = OrderFactory.createOrder({
             id: order.id,
             date: order.date,
-            items: items,
+            items,
             total: order.total
         });
         return orderInstance.toHTML();
