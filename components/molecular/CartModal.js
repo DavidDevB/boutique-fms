@@ -16,7 +16,7 @@ const CartModal = async (storage, checkout) => {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Checkout functionality coming soon!</p>
+                        <p>Order registered successfully!</p>
                     </div>
                     <div class="modal-footer">
                         <button id="close-checkout-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
