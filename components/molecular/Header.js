@@ -1,5 +1,8 @@
 
-const Header = () => {
+import DropdownButton from "./DropdownButton.js";
+
+
+const Header = (userOrAdmin = "user") => {
 
     const style = `
     <style>
@@ -39,6 +42,7 @@ const Header = () => {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
+        align-items: center;
         gap: 15px;
         }
 
@@ -67,7 +71,7 @@ const Header = () => {
             </nav>
             <nav class="cart-and-user">
                 <img id="shopping-cart" src="/assets/icon-shopping-cart.png" alt="Shopping Cart Icon"/>
-                <img id="user-icon" src="/assets/icon-user.png" alt="User Icon"/>
+                ${DropdownButton('User Menu', ['Profile', 'Orders', 'Logout'], `<img id="user-icon" src="/assets/icon-user.png" alt="User Icon"/>`, userOrAdmin)}
             </nav>
         </header>`
     );
