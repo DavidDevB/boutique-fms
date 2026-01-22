@@ -30,3 +30,22 @@ async function displayOrders() {
 }
 
 displayOrders();
+
+// Filtrer par date
+document.addEventListener('change', async (event) => {
+    if (event.target.matches('input[name="date"]')) {
+        const selectedDate = event.target.value;
+        let orders = JSON.parse(cartStorage.getItem('orders') || '[]');
+
+        if (selectedDate) {
+            const filterDate = new Date(selectedDate);
+            orders = orders.filter(order => {
+                const orderDate = new Date(order.date);
+                // Comparer uniquement les dates (sans l'heure)
+                return orderDate.toDateString() === filterDate.toDateString();
+            });
+        }
+        mainSection.innerHTML = await OrdersDisplay(orders);
+    }
+});
+
