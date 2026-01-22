@@ -139,6 +139,9 @@ const Header = (userOrAdmin = "user") => {
                         <img style="cursor: pointer;" class="reset-filters" id="logo" src="/assets/logo-fms-boutique.png" alt="FMS Boutique Logo"/>
                         <p class="admin-panel-text">Admin Panel</p>
                     </div>
+                    <div class="edit-items-nav">
+                        <button class="add-item-button">Add New Item</button>
+                    </div>
                 </nav>
                 <nav class="cart-and-user">
                     <img id="shopping-cart" src="/assets/icon-shopping-cart.png" alt="Shopping Cart Icon"/>
