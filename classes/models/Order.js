@@ -15,7 +15,7 @@ class Order {
                 <p>Date: ${new Date(this.date).toLocaleDateString()}</p>
                 <p>Total: ${this.total}€</p>
                 <ul>
-                    ${this.items.map(item => `<li>${item.title} - ${item.price}€</li>`).join('')}
+                    ${this.items.map(item => `<li>${item.title} ${item.quantity}x - ${item.price}€</li>`).join('')}
                 </ul>
             </div>
         `;
