@@ -10,7 +10,7 @@ let checkout = false;
 const body = document.querySelector('body');
 
 // Insère le header en haut de la page
-body.insertAdjacentHTML('afterbegin', Header());
+body.insertAdjacentHTML('afterbegin', Header("user"));
 
 // Insère la modale du panier
 body.insertAdjacentHTML('beforeend', await CartModal(cartStorage.getItem('cart') ? JSON.parse(cartStorage.getItem('cart')) : undefined));
@@ -82,12 +82,25 @@ async function reloadCartModal() {
 
 // Fonction pour afficher un message lorsque le panier est vide
 function showEmptyCartMessage() {
-    console.log('Showing empty cart message');
-    const modalBody = document.querySelector('#cartModal .modal-body');
-    console.log('Modal body:', modalBody);  
+    const modalBody = document.querySelector('#cartModal .modal-body');  
     if (modalBody) {
         modalBody.innerHTML = '<p>Your cart is currently empty.</p>';
     }
+}
+
+// Fonction pour mettre à jour le total du panier
+function updateTotal() {
+    const totalPriceElement = document.querySelector('.modal-total span[data-total]');
+    if (!totalPriceElement) return;
+    
+    let total = 0;
+    document.querySelectorAll('.cart-item').forEach(item => {
+        const itemPrice = parseFloat(item.querySelector('p[data-price]').dataset.price) || 0;
+        total += itemPrice;
+    });
+    
+    totalPriceElement.textContent = `Total: ${total.toFixed(2)}€`;
+    totalPriceElement.dataset.total = total.toFixed(2);
 }
 
 // Délégation d'événements pour les boutons de quantité (GLOBAL)
@@ -100,9 +113,7 @@ document.addEventListener('click', (e) => {
         const itemId = cartItem.dataset.id;
         const input = cartItem.querySelector('.quantity-input');
         const priceElement = cartItem.querySelector('p[data-price]');
-        const unitPrice = parseFloat(priceElement.dataset.price);
-        const totalPriceElement = document.querySelector('.modal-total span[data-total]');
-        const totalPriceValue = parseFloat(totalPriceElement.dataset.total);
+        const unitPrice = parseFloat(cartItem.dataset.price);
         
         let cart = JSON.parse(cartStorage.getItem('cart')) || {};
         let currentValue = parseInt(cart[itemId]) || 0;
@@ -111,25 +122,34 @@ document.addEventListener('click', (e) => {
             currentValue += 1;
             cart[itemId] = currentValue;
             input.value = currentValue; 
+
+            const newItemTotal = unitPrice * currentValue;
             priceElement.textContent = `${(unitPrice * currentValue).toFixed(2)}€`;
-            totalPriceElement.textContent = `Total: ${(totalPriceValue + unitPrice).toFixed(2)}€`;
+            priceElement.dataset.price = newItemTotal.toFixed(2);
+
+            updateTotal();
 
         } else if (action === 'subtract' && currentValue > 1) {
             currentValue -= 1;
             cart[itemId] = currentValue;
             input.value = currentValue; 
+
+            const newItemTotal = unitPrice * currentValue;
             priceElement.textContent = `${(unitPrice * currentValue).toFixed(2)}€`;
-            totalPriceElement.textContent = `Total: ${(totalPriceValue - unitPrice).toFixed(2)}€`;
+            priceElement.dataset.price = newItemTotal.toFixed(2);
+
+            updateTotal();
             
         } else if (action === 'subtract' && currentValue === 1) {
             console.log('Removing item from cart');
             delete cart[itemId];
             cartItem.remove();
+
+            updateTotal();
             
             // Si le panier est vide, afficher un message
             if (Object.keys(cart).length === 0) {
-                console.log('Cart is now empty');
-                showEmptyCartMessage()
+                showEmptyCartMessage();
             }
             
         }
@@ -160,16 +180,16 @@ document.addEventListener('click', async (e) => {
         const modalElement = document.getElementById('cartModal');
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
         
-        // ✅ 2. Ferme proprement
+        // 2. Ferme proprement
         if (modalInstance) {
             modalInstance.hide();
         }
         
-        // ✅ 3. Attends la fermeture complète
+        // 3. Attends la fermeture complète
         modalElement.addEventListener('hidden.bs.modal', async function onHidden() {
             modalElement.removeEventListener('hidden.bs.modal', onHidden);
             
-            // ✅ 4. Recharge et réaffiche
+            // 4. Recharge et réaffiche
             checkout = true;
             await reloadCartModal();
             
@@ -186,17 +206,17 @@ document.addEventListener('click', async (e) => {
         const modalElement = document.getElementById('cartModal');
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
         
-        // ✅ 2. Ferme proprement la modale Bootstrap
+        // 2. Ferme proprement la modale Bootstrap
         if (modalInstance) {
             modalInstance.hide();
         }
         
-        // ✅ 3. Attends que Bootstrap ait fini de fermer
+        // 3. Attends que Bootstrap ait fini de fermer
         modalElement.addEventListener('hidden.bs.modal', async function onHidden() {
             // Supprime le listener pour éviter les duplications
             modalElement.removeEventListener('hidden.bs.modal', onHidden);
             
-            // ✅ 4. Maintenant tu peux recharger
+            // 4. Maintenant tu peux recharger
             checkout = false;
             await reloadCartModal();
         });
