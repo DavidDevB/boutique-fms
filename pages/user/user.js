@@ -180,6 +180,21 @@ document.addEventListener('click', async (e) => {
         const modalElement = document.getElementById('cartModal');
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
         
+        // 1. Enregistre la commande dans orders dans le localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+        const order = {
+            id: Date.now(),
+            items: cart,
+            total: document.querySelector('.modal-total span[data-total]').dataset.total,
+            date: new Date().toISOString()
+        };
+
+        orders.push(order);
+        localStorage.setItem('orders', JSON.stringify(orders));
+        localStorage.removeItem('cart');
+
         // 2. Ferme proprement
         if (modalInstance) {
             modalInstance.hide();
