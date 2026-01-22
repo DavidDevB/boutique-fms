@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Kosugi&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+}
+
+.main-content {
+    flex: 8;
+    overflow-y: auto;
+}
+
+.items-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.items-header h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Kosugi', sans-serif;
+    color: #333;
+}
+
+.items-header span {
+    font-family: 'Kosugi', sans-serif;
+    font-size: 20px;
+    color: #666;
+}
+
+.modal-total {
+    font-family: 'Kosugi', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#checkout {
+    margin: 20px;
+}
+
+#cartModal {
+    font-family: 'Kosugi', sans-serif;
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.quantity-input {
+    width: 30px;
+    text-align: center;
+}
+
+.cart-item img {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.cart-item button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+#add {
+    margin-right: 20px;
+}
+
+.cart-item #cross-button {
+    width: 15px;
+    height: 15px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
