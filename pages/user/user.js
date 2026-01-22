@@ -184,9 +184,29 @@ document.addEventListener('click', async (e) => {
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
 
+        const response = await fetch('/data/items.json');
+        const data = await response.json();
+        const allItems = Array.isArray(data) ? data : data.items;
+
+        const items = Object.entries(cart).map(([id, quantity]) => {
+            const itemData = allItems.find(item => item.id === parseInt(id));
+            
+            if (!itemData) {
+                console.error(`Item ${id} not found in items.json`);
+                return null;
+            }
+
+            return {
+                id: parseInt(id),
+                quantity: quantity,   
+                price: itemData.price * quantity,    
+                title: itemData.title      
+            };
+        }).filter(item => item !== null);
+
         const order = {
             id: Date.now(),
-            items: cart,
+            items,
             total: document.querySelector('.modal-total span[data-total]').dataset.total,
             date: new Date().toISOString()
         };
