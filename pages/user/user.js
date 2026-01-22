@@ -101,7 +101,7 @@ function updateTotal() {
     totalPriceElement.dataset.total = total.toFixed(2);
 }
 
-// Délégation d'événements pour les boutons de quantité (GLOBAL)
+// Délégation d'événements pour les boutons de quantité (évite de recréer des écouteurs à chaque évènement)
 document.addEventListener('click', (e) => {
     const button = e.target.closest('.quantity-button');
     
