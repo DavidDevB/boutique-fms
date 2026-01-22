@@ -63,8 +63,7 @@ async function reloadCartModal() {
     
     // Importer la fonction CartModal
     const { default: CartModal } = await import('../../components/molecular/CartModal.js');
-    
-    console.log(checkout);
+
     // Générer le nouveau HTML
     const newModalHTML = await CartModal(cart, checkout);
     
@@ -176,7 +175,7 @@ document.addEventListener('click', (e) => {
 
 //Bouton checkout
 document.addEventListener('click', async (e) => {
-    if (e.target.id === 'checkout') {
+    if (e.target.id === 'checkout' && Object.keys(JSON.parse(cartStorage.getItem('cart'))).length > 0) {
         const modalElement = document.getElementById('cartModal');
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
         

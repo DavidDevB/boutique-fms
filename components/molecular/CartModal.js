@@ -40,6 +40,9 @@ const CartModal = async (storage, checkout) => {
                 <div class="modal-body">
                     <p>Your cart is currently empty.</p>
                 </div>
+                <div class="modal-total">
+                    <span data-total="00">Total: 00.00€</span>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Proceed to Checkout</button>
